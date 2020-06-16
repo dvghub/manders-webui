@@ -23,6 +23,11 @@
   console.log();
 
   export default {
+    data() {
+      return {
+        user: null
+      }
+    },
     components: {navi}
   }
 </script>

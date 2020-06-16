@@ -19,11 +19,14 @@
             </ul>
 
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
+                <li class="nav-item" v-if="this.$parent.user === null">
                     <a class="nav-link" v-bind:class="{ active: loginActive }" href="/#/login">login</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" v-if="this.$parent.user === null">
                     <a class="nav-link" v-bind:class="{ active: registerActive }" href="/#/register">registreren</a>
+                </li>
+                <li class="nav-item" v-if="this.$parent.user !== null">
+                    <a class="nav-link" v-on:click="logout">uitloggen</a>
                 </li>
             </ul>
         </div>
@@ -32,6 +35,11 @@
 
 <script>
   export default {
+    methods: {
+      logout() {
+        this.$parent.user = null;
+      }
+    },
     computed: {
       homeActive() {
         return this.$route.path === '/'
