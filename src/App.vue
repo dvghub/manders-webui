@@ -20,13 +20,15 @@
 <script>
   import navi from "./components/navi";
 
-  console.log();
-
   export default {
     data() {
       return {
         user: null
       }
+    },
+    mounted() {
+      this.user = sessionStorage.getItem('user');
+      console.log(this.user);
     },
     components: {navi}
   }

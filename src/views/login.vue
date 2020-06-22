@@ -12,7 +12,7 @@
                     <input type="password" class="form-control" id="password" v-model="password" />
                 </div>
                 <div class="alert" v-if="error !== ''">{{ error }}</div>
-                <button type="button" class="btn btn-secondary" v-on:click="login">login</button>
+                <button class="btn btn-secondary" v-on:click="login">login</button>
             </form>
         </div>
     </div>
@@ -26,8 +26,8 @@
     data () {
       return {
         info: null,
-        email: '',
-        password: '',
+        email: 'admin@manders.com',
+        password: 'pass',
         error: ''
       }
     },
@@ -38,8 +38,8 @@
             password: this.password
           })
           .then(response => {
-            console.log(response.data);
             this.$parent.user = response.data;
+            sessionStorage.setItem('user', response.data);
           })
       }
     },
