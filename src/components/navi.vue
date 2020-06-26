@@ -38,6 +38,7 @@
     methods: {
       logout() {
         this.$parent.user = null;
+        sessionStorage.removeItem('user');
       }
     },
     computed: {
