@@ -4,58 +4,46 @@
         <div class="row card-body text-left">
             <div class="col-12 col-md-4 p-0">
                 <div class="list-group-flush p-0">
-                    <a href="#" class="list-group-item list-group-item-action" v-on:click="turn('info-energy')">
+                    <a href="/#/informatie/energie" class="list-group-item list-group-item-action">
                         Acupunctuur en energiebanen
                     </a>
-                    <a href="#" class="list-group-item list-group-item-action" v-on:click="turn('info-help')">
+                    <a href="/#/informatie/helpen" class="list-group-item list-group-item-action">
                         Waarmee kan acupunctuur u helpen?
                     </a>
-                    <a href="#" class="list-group-item list-group-item-action" v-on:click="turn('info-session')">
+                    <a href="/#/informatie/sessie" class="list-group-item list-group-item-action">
                         Hoe verloopt een sessie?
                     </a>
-                    <a href="#" class="list-group-item list-group-item-action" v-on:click="turn('info-certs')">
+                    <a href="/#/informatie/certificatie" class="list-group-item list-group-item-action">
                         Vakbekwaamheid
                     </a>
-                    <a href="#" class="list-group-item list-group-item-action" v-on:click="turn('info-privacy')">
+                    <a href="/#/informatie/privacy" class="list-group-item list-group-item-action">
                         Privacyverklaring Wet AVG
                     </a>
                 </div>
             </div>
             <div class="col card-text pt-3">
-                <infoenergy v-if="page === 'info-energy'" />
-                <infohelp v-if="page === 'info-help'"  />
-                <infosession v-if="page === 'info-session'"  />
-                <infocerts v-if="page === 'info-certs'"  />
-                <infoprivacy v-if="page === 'info-privacy'"  />
+                <simpleeditor :page="page"></simpleeditor>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-  import infoenergy from "../components/infoenergy";
-  import infohelp from "../components/infohelp";
-  import infosession from "../components/infosession";
-  import infocerts from "../components/infocerts";
-  import infoprivacy from "../components/infoprivacy";
+  import Simpleeditor from "../components/simpleeditor";
 
   export default {
     data () {
       return {
-        page: 'info-energy'
+        page: 'energie'
       }
     },
-    methods: {
-      turn (name) {
-        this.page = name;
+    watch: {
+      '$route.params.page': function (page) {
+        this.page = page;
       }
     },
     components: {
-      infoenergy,
-      infohelp,
-      infosession,
-      infocerts,
-      infoprivacy
+      Simpleeditor
     },
     name: "information"
   }

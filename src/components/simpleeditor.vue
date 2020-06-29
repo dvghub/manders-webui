@@ -19,9 +19,14 @@
     props: {
       page: String
     },
+    watch: {
+      'page': function(page) {
+        this.page = page;
+        this.getContent();
+      }
+    },
     mounted() {
       this.getContent();
-      console.log(this.$parent.user);
     },
     data() {
       return {
@@ -52,7 +57,7 @@
       getContent() {
         axios.get(api.url + '/page/read/' + this.page).then(response => {
           this.content = response.data;
-        })
+        }).catch(this.content = '')
       }
     },
     name: "simpleeditor"

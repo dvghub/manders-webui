@@ -26,6 +26,11 @@ const routes = [
     component: information
   },
   {
+    path: '/informatie/:page',
+    name: 'information subs',
+    component: information
+  },
+  {
     path: '/login',
     name: 'login',
     component: login
