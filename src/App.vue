@@ -28,7 +28,6 @@
     },
     mounted() {
       this.user = sessionStorage.getItem('user');
-      console.log(this.user);
     },
     components: {navi}
   }
