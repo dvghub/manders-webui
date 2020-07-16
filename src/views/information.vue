@@ -53,7 +53,4 @@
 </script>
 
 <style scoped>
-.listactive {
-    background: #f3f3f3;
-}
 </style>
