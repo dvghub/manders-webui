@@ -3,10 +3,23 @@
         <h3 class="card-header bg-white">agenda</h3>
         <div class="row card-body text-left">
             <div class="col-12 col-md-7 border-top border-secondary px-0">
+                <div class="col-weekday text-center px-0 float-left">M</div>
+                <div class="col-weekday text-center px-0 float-left">D</div>
+                <div class="col-weekday text-center px-0 float-left">W</div>
+                <div class="col-weekday text-center px-0 float-left">D</div>
+                <div class="col-weekday text-center px-0 float-left">V</div>
+                <div class="col-weekday text-center px-0 float-left">Z</div>
+                <div class="col-weekday text-center px-0 float-left">Z</div>
+            </div>
+            <div class="col-12 col-md-7 border-top border-secondary px-0">
                 <template v-if="blanks">
                     <div v-for="blank in blanks" v-bind:key="blank + 'blank'" class="col-weekday empty-div height-50 bg-light float-left p-1"></div>
                 </template>
-                <div v-for="day in days" v-bind:key="new Date(day).getDate()" class="col-weekday height-50 float-left p-1 hoverable" v-on:click="getScheduleForDay(day)">
+                <div v-for="day in days"
+                     v-bind:key="new Date(day).getDate()"
+                     v-bind:class="new Date(day).getDay() === 0 ? 'bg-light' : 'hoverable'"
+                     class="col-weekday height-50 float-left p-1"
+                     v-on:click="new Date(day).getDay() === 0 ? '' : getScheduleForDay(day)">
                     {{new Date(day).getDate()}}
                 </div>
                 <template v-if="blanks2">
@@ -22,15 +35,15 @@
                 </div>
                 <div class="col-10 float-left px-0">
                     <div class="float-left clear-left col-12 text-right"
-                         v-bind:class="slot.type === 'blank' ? 'empty-div' : 'bg-slot'"
+                         v-bind:class="slot.type === 'blank' ? 'empty-div' : 'bg-slot slot'"
                          v-bind:style="{ height: slot.size * 10 + 'px' }"
-                         v-bind:key="slot.start"
+                         v-bind:key="slot.id"
                          v-for="slot in slots">
                         {{slot.type === 'slot' ?
-                            new Date(slot.start).getHours() + ':' +
-                            new Date(slot.start).getMinutes() + '-' +
-                            new Date(slot.end).getHours() + ':' +
-                            new Date(slot.end).getMinutes() : ''}}
+                        (new Date(slot.start).getHours().toString().length === 1 ? '0' + new Date(slot.start).getHours() : new Date(slot.start).getHours()) + ':' +
+                        (new Date(slot.start).getMinutes().toString().length === 1 ? '0' + new Date(slot.start).getMinutes() : new Date(slot.start).getMinutes()) + ' - ' +
+                        (new Date(slot.end).getHours().toString().length === 1 ? '0' + new Date(slot.end).getHours() : new Date(slot.end).getHours()) + ':' +
+                        (new Date(slot.end).getMinutes().toString().length === 1 ? '0' + new Date(slot.end).getMinutes() : new Date(slot.end).getMinutes()) : ''}}
                     </div>
                 </div>
             </div>
@@ -45,7 +58,6 @@
   export default {
     mounted() {
       this.today = new Date();
-      this.day = 0;
       this.month = this.today.getMonth();
       this.year = this.today.getFullYear();
       this.days = this.getDaysPerMonth(this.month);
@@ -125,14 +137,16 @@
       },
       getScheduleForDay(day) {
         const date = new Date(day);
-        axios.get(api.url + '/schedule/day/' + date.getFullYear() + '/' + date.getMonth() + '/' + date.getDate()).then(response => {
+        this.day = date.getDate();
+        axios.get(api.url + '/schedule/day/' + this.year + '/' + this.month + '/' + this.day).then(response => {
           this.slots = [];
-          this.makeOverviewForSchedule(response.data)
+          this.makeOverviewForSchedule(response.data);
         })
       },
       makeOverviewForSchedule(schedule) {
+        schedule.sort(function (a, b) { return b.Id - a.Id });
         schedule.forEach((s, i) => {
-          const prev = i === 0 ? new Date(1975, 0, 1, 8).toISOString() : schedule[i - 1].End;
+          const prev = i === 0 ? new Date(this.year, this.month, this.day, 8).toISOString() : schedule[i - 1].End;
 
           this.slots.push({
             size: this.getQuarters(prev, s.Start),
@@ -140,6 +154,7 @@
             start: prev,
             end: s.Start
           }, {
+            id: s.Id,
             size: this.getQuarters(s.Start, s.End),
             type: 'slot',
             start: s.Start,
@@ -186,11 +201,18 @@
     .clear-left {
         clear: left;
     }
+    .slot:hover {
+        background-color: #81a6b4;
+        cursor: pointer;
+    }
     .bg-slot {
         background-color: #a4ccda;
     }
     .hoverable:hover {
         background-color: #eeeff0;
         cursor: pointer;
+    }
+    non-hoverable:hover {
+        cursor: default;
     }
 </style>

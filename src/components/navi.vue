@@ -1,6 +1,6 @@
 <template>
     <div class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a href="/#/" class="navbar-brand">🤏 Acupunctuur Manders</a>
+        <a href="/#/" class="navbar-brand">📍 Acupunctuur Manders</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dropdown" aria-label="Navi toggle" aria-expanded="false">
             <span class="navbar-toggler-icon"></span>
         </button>
