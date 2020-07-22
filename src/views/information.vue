@@ -4,19 +4,22 @@
         <div class="row card-body text-left">
             <div class="col-12 col-md-4 p-0">
                 <div class="list-group-flush p-0">
-                    <a href="/#/informatie/energie" class="list-group-item list-group-item-action">
+                    <a href="/#/informatie/energie" class="list-group-item list-group-item-action " v-bind:class="{ listactive: page === 'energie'}">
                         Acupunctuur en energiebanen
                     </a>
-                    <a href="/#/informatie/helpen" class="list-group-item list-group-item-action">
+                    <a href="/#/informatie/helpen" class="list-group-item list-group-item-action " v-bind:class="{ listactive: page === 'helpen'}">
                         Waarmee kan acupunctuur u helpen?
                     </a>
-                    <a href="/#/informatie/sessie" class="list-group-item list-group-item-action">
+                    <a href="/#/informatie/sessie" class="list-group-item list-group-item-action " v-bind:class="{ listactive: page === 'sessie'}">
                         Hoe verloopt een sessie?
                     </a>
-                    <a href="/#/informatie/certificatie" class="list-group-item list-group-item-action">
+                    <a href="/#/informatie/interesse" class="list-group-item list-group-item-action " v-bind:class="{ listactive: page === 'interesse'}">
+                        Interesse?
+                    </a>
+                    <a href="/#/informatie/certificatie" class="list-group-item list-group-item-action " v-bind:class="{ listactive: page === 'certificatie'}">
                         Vakbekwaamheid
                     </a>
-                    <a href="/#/informatie/privacy" class="list-group-item list-group-item-action">
+                    <a href="/#/informatie/privacy" class="list-group-item list-group-item-action " v-bind:class="{ listactive: page === 'privacy'}">
                         Privacyverklaring Wet AVG
                     </a>
                 </div>
@@ -50,5 +53,4 @@
 </script>
 
 <style scoped>
-
 </style>

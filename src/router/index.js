@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import home from '../views/home.vue'
 import contact from '../views/contact.vue'
 import information from '../views/information.vue'
+import agenda from '../views/agenda.vue'
+import appointment from '../views/appointment.vue'
 import login from '../views/login.vue'
 import register from '../views/register.vue'
 import notfound from '../views/notfound.vue'
@@ -29,6 +31,16 @@ const routes = [
     path: '/informatie/:page',
     name: 'information subs',
     component: information
+  },
+  {
+    path: '/agenda',
+    name: 'agenda',
+    component: agenda
+  },
+  {
+    path: '/agenda/appointment/:id',
+    name: 'appointment',
+    component: appointment
   },
   {
     path: '/login',
